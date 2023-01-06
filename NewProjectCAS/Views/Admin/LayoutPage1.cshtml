@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+    <style>
+        .navbar-nav {
+            min-height: 70px;
+            font-size: 50px;
+        }
+
+        .nav-item.active {
+            margin-right: 50px;
+            margin-top: 7px;
+            font-size: 30px;
+        }
+
+        #box, #adp1, #adp2, #adp3, #adp4, #adp5 {
+            box-shadow: 12px 12px 6px grey;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                
+
+
+                @if (Request.IsAuthenticated)
+                {
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    @Html.ActionLink("Login", "Login", "Admin", new { area = "" }, new { @class = "navbar-brand" })
+                </li>
+            </ul> }
+        else
+        {
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    @Html.ActionLink("LogOut", "LogOut", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </li>
+            </ul>}
+
+                @*@if (Request.IsAuthenticated)
+                {
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    @Html.ActionLink("LogOut", "LogOut", "Admin", new { area = "" }, new { @class = "navbar-brand" })
+                </li>
+            </ul> }
+        else
+        {
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    @Html.ActionLink("Login", "Login", "Admin", new { area = "" }, new { @class = "navbar-brand" })
+                </li>
+            </ul>}
+
+                @if (Request.IsAuthenticated)
+                {
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    @Html.ActionLink("LogOut", "LogOut", "Admin", new { area = "" }, new { @class = "navbar-brand" })
+                </li>
+            </ul> }
+                        else
+                        {
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    @Html.ActionLink("Login", "Login", "Admin", new { area = "" }, new { @class = "navbar-brand" })
+                </li>
+            </ul>}*@
+
+
+
+
+            </div>
+        </nav>
+    </div>
+    <div style="background-color:aliceblue">
+        @RenderBody()
+    </div>
+
+   
+
+
+</body>
+</html>

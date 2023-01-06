@@ -1,0 +1,90 @@
+﻿@model NewProjectCAS.Models.PatientDashboardModel
+@{ ViewBag.Title = "Dashboard"; }
+
+<div class="form-row" style="margin-left:-15px">
+    <div class="col-sm-3">
+        <div class="w3-sidebar w3-light-grey w3-bar-block" style="height:835px;background-color:darkgrey">
+            <h1 class="text-center">Menu</h1>
+            <br><br>
+            <div class="container text-left col-sm-3" style="font-size:20px">
+                @using (MyDatabseEntities db = new MyDatabseEntities())
+                {
+                    int mid = Convert.ToInt32(Session["MemberId"]);
+                    var getdata = db.Patients.FirstOrDefault(a => a.MemberId == mid);
+
+                    if (getdata == null)
+                    {
+    <ul>
+        <li>@Html.ActionLink("Dashboard", "GetDashboard", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Edit_Profile", "GetPatientData", "Patient")</li>
+    </ul> }
+                    else
+                    {
+    <ul>
+        <li>@Html.ActionLink("Dashboard", "GetDashboard", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Edit_Profile", "GetPatientData", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Change_Password", "ChangePassword", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Doctor_Appointment", "DoctorAppointment", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("View_Appointment_Detail", "ViewAppointmentDetails", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Send_Message_To_Doctor", "SendMessageToDoctor", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("View_Message", "ViewDoctorMessage", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Raise_Drug_Order", "RaiseDrugOrder", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("View_Order_Details", "ViewOrderDetails", "Patient")</li>
+    </ul>                }
+                }
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col-sm-9">
+        <div>
+            <div class="container text-center">
+                <h2><b>This is Your Dashboard</b></h2>
+            </div>
+            <br /><br />
+
+            <div class="form-row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-3">
+                    <div id="pdp1" class="img-circle text-center" style="width:300px;height:300px;padding-top:110px;background-color:lightcoral">
+                        <h3>Total Appointments <b> @Model.TotalAppointment</b></h3>
+                    </div>
+                </div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <div id="pdp2" class="img-circle text-center" style="width:300px;height:300px;padding-top:60px;background-color:lightseagreen">
+                        <h3>Requested <b> @Model.AppointmentRequested</b></h3>
+                        <h3>Approved <b> @Model.AppointmentApproved</b></h3>
+                        <h3>Rejected <b> @Model.AppointmentRejected</b></h3>
+                    </div>
+                </div>
+                <div class="col-sm-1"></div>
+            </div>
+            <br /><br />
+            <div class="form-row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3">
+                    <div id="pdp3" class="img-circle text-center" style="width:300px;height:300px;padding-top:110px;background-color:yellowgreen">
+                        <h3>Total Orders  <b>@Model.TotalOrders</b> </h3>
+                    </div>
+                </div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <div id="pdp4" class="img-circle text-center" style="width:300px;height:300px;padding-top:60px;background-color:mediumpurple">
+                        <h3>Delivered <b> @Model.OrdersDelivered</b></h3>
+                        <h3>Remaining <b> @Model.OrdersRemaining</b></h3>
+                    </div>
+                </div>
+                <div class="col-sm-1"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

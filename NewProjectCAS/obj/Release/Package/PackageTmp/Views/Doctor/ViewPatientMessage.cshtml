@@ -1,0 +1,144 @@
+﻿@model NewProjectCAS.Models.InboxMessageModel
+@{ ViewBag.Title = "ViewPatientMessage"; }
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<div class="form-row" style="margin-left:-15px">
+    <div class="col-sm-3">
+
+
+
+        <div class="w3-sidebar w3-light-grey w3-bar-block" style="height:835px;background-color:darkgrey">
+            <h1 class="text-center">Menu</h1>
+            <br><br>
+            <div class="container text-left col-sm-3" style="font-size:20px">
+                @using (MyDatabseEntities db = new MyDatabseEntities())
+                {
+                    int mid = Convert.ToInt32(Session["MemberId"]);
+                    var getdata = db.Doctors.FirstOrDefault(a => a.MemberId == mid);
+
+                    if (getdata == null)
+                    {
+    <ul>
+        <li>@Html.ActionLink("Dashboard", "GetDashboard", "Doctor")<br><br /></li>
+        <li>@Html.ActionLink("Edit_Profile", "GetDoctorData", "Doctor")</li>
+    </ul> }
+                    else
+                    {
+    <ul>
+        <li>@Html.ActionLink("Dashboard", "GetDashboard", "Doctor")<br><br /></li>
+        <li>@Html.ActionLink("Edit_Profile", "GetDoctorData", "Doctor")<br><br /></li>
+        <li>@Html.ActionLink("Change_Password", "ChangePassword", "Doctor")<br><br /></li>
+        <li>@Html.ActionLink("View_Appointment_Detail", "ViewAppointmentDetails", "Doctor")<br><br /></li>
+        <li>@Html.ActionLink("View_Message", "ViewPatientMessage", "Doctor")</li>
+    </ul>                }
+                }
+
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+    <div class="col-sm-9">
+        <div class="container">
+            <div class="container text-center">
+                <h2><b>Welome To Your Inbox</b></h2>
+            </div>
+            <br><br><br><br />
+
+
+            <table class="table table-bordered">
+                <tr>
+                    <th>Patient EmailId</th>
+                    <th>Subject</th>
+                    <th>Message Detail</th>
+                    <th>Message Date</th>
+                    <th colspan="2">Operation</th>
+                </tr>
+
+                @if (Model.lstMessage.Count > 0)
+                {
+                    foreach (var item in Model.lstMessage)
+                    {
+    <tr>
+        <td>@item.FromEmailId</td>
+        <td>@item.Subject</td>
+        <td>@item.MessageDetail</td>
+        <td>@item.MessageDate</td>
+        <td>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal_@item.MessageId">
+                Reply
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal_@item.MessageId" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Subject: <input type="text" id="txtSubject_@item.MessageId" class="form-control" />
+                            Message: <input type="text" id="txtMessage_@item.MessageId" class="form-control" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" id="btnSave_@item.MessageId" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                                $(document).ready(function () {
+                                    $("#btnSave_@item.MessageId").click(function () {
+                                        var message = $("#txtMessage_@item.MessageId").val();
+                                        var subject = $("#txtSubject_@item.MessageId").val();
+                                        //var id = $(this).val();
+                                        var dataValue = {
+                                            MessageId: @item.MessageId,
+                                            FromEmailId: '@item.FromEmailId',
+                                            ToEmailId:'@item.ToEmailId',
+                                            Subject: subject,
+                                            MessageDetail: message
+                                        };
+
+                                        $.ajax({
+                                            url: '@Url.Action("PostDoctorReply", "Doctor")',
+                                            type: 'post',
+                                            data: dataValue,
+                                            dataType: 'json',
+                                            success: function (d) {
+                                                alert(d);
+                                            },
+                                            error: function(d){
+                                                alert(d);
+                                            }
+                                        });
+                                    });
+                                });
+            </script>
+
+        </td>
+    </tr> }
+                }
+                else
+                {
+    <tr class="text-center">
+        <td colspan="6"><b>No record Found</b></td>
+    </tr>}
+            </table>
+        </div>
+    </div>
+</div>
+
+
+

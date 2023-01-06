@@ -1,0 +1,134 @@
+﻿@model NewProjectCAS.Models.DrugOrderModel
+@{ ViewBag.Title = "ViewOrderDetail";
+    Layout = "~/Views/Admin/LayoutPage1.cshtml"; }
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<div class="form-row" style="margin-left:-15px">
+    <div class="col-sm-3">
+
+
+        <div class="w3-sidebar w3-light-grey w3-bar-block" style="height:835px;background-color:darkgrey">
+            <h1 class="text-center">Menu</h1>
+            <br><br>
+            <div class="container text-left col-sm-3" style="font-size:20px">
+                <ul>
+                    <li>@Html.ActionLink("Dashboard", "GetDashboard", "Admin")<br><br /></li>
+                    <li>@Html.ActionLink("Edit_Profile", "GetAdminData", "Admin")<br><br /></li>
+                    <li>@Html.ActionLink("Change_Password", "ChangePassword", "Admin")<br><br /></li>
+                    <li>@Html.ActionLink("Add_And_Edit_Drug_Details", "AddDrugDetails", "Admin")<br><br /></li>
+                    <li>@Html.ActionLink("View_And_Delete_Drugs", "ViewDrugsDetails", "Admin")<br><br /></li>
+                    <li>@Html.ActionLink("View_Order_Detail", "ViewOrderDetail", "Admin")</li>
+                </ul>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <div class="col-sm-9">
+        <div class="container">
+            <div class="container text-center">
+                <h2><b>Patients Drug Order List</b></h2>
+            </div>
+            <br><br><br><br />
+
+            <table class="table table-bordered">
+                <tr>
+                    <th>Order Id</th>
+                    <th>Patient Id</th>
+                    <th>Patient Name</th>
+                    <th>Drug Id</th>
+                    <th>Drug Name</th>
+                    <th>OrderNumber</th>
+                    <th>Quantity</th>
+                    <th>Order Date</th>
+                    <th>Supplier</th>
+                    <th>Operation</th>
+                </tr>
+
+                @if (Model.lstDrugOrder.Count > 0)
+                {
+                    foreach (var item in Model.lstDrugOrder)
+                    {
+    <tr>
+        <td>@item.OrderId</td>
+        <td>@item.PatientId</td>
+        <td>@item.PatientName</td>
+        <td>@item.DrugId</td>
+        <td>@item.DrugName</td>
+        <td>@item.OrderNumber</td>
+        <td>@item.Quantity</td>
+        <td>@item.OrderDate</td>
+
+        @using (MyDatabseEntities db = new MyDatabseEntities())
+        {
+            var getdata = (from dd in db.DrugDeliveries
+                           join s in db.Suppliers
+on dd.SupplierId equals s.SupplierId
+                           where dd.OrderId == item.OrderId
+                           select new { s.SupplierId, s.FirstName }).SingleOrDefault();
+            if (getdata != null && getdata.SupplierId > 0)
+            {
+<td colspan="2"><b>Assigned to  <u>@getdata.FirstName</u></b></td>
+ }
+else if (getdata == null)
+{
+<td>
+    @Html.DropDownListFor(a => a.SupplierId, Model.lstSupplier, "-Select-", new { @class = "form-control", @id = "ddl_" + item.OrderId + "" })
+</td>
+                            <td>
+                                <input type="submit" id="btnSave_@item.OrderId" class="btn btn-primary" value="Assign">
+
+                                <script>
+                                           $(document).ready(function ()
+                                           {
+                                                $("#btnSave_@item.OrderId").click(function ()
+                                                {
+                                                    var supplierId = $("#ddl_@item.OrderId").val();
+
+                                                    var dataValue =
+                                                    {
+                                                        OrderId: @item.OrderId,
+                                                        SupplierId: supplierId
+                                                    };
+
+                                                    $.ajax
+                                                        ({
+                                                        url: '@Url.Action("PostOrderDetail", "Admin")',
+                                                        type: 'post',
+                                                        data: dataValue,
+                                                        dataType: 'json',
+                                                            success: function (d)
+                                                            {
+                                                                alert(d);
+                                                                window.location.href = '@Url.Action("ViewOrderDetail", "Admin")';
+                                                            },
+                                                            error: function (d)
+                                                            {
+                                                                alert(d);
+                                                            }
+                                                        });
+                                                });
+                                           });
+                                </script>
+                            </td>
+}
+                    }
+
+    </tr>
+ }
+}
+else
+{
+<tr class="text-center">
+    <td colspan="10">No record Found</td>
+</tr>
+}
+            </table>
+
+        </div>
+    </div>
+</div>
+
+

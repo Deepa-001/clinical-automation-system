@@ -1,0 +1,102 @@
+﻿@model NewProjectCAS.Models.InboxMessageModel
+@{ ViewBag.Title = "SendMessageToDoctor"; }
+
+<div class="form-row" style="margin-left:-15px">
+    <div class="col-sm-3">
+
+
+        <div class="w3-sidebar w3-light-grey w3-bar-block" style="height:835px;background-color:darkgrey">
+            <h1 class="text-center">Menu</h1>
+            <br><br>
+            <div class="container text-left col-sm-3" style="font-size:20px">
+                @using (MyDatabseEntities db = new MyDatabseEntities())
+                {
+                    int mid = Convert.ToInt32(Session["MemberId"]);
+                    var getdata = db.Patients.FirstOrDefault(a => a.MemberId == mid);
+
+                    if (getdata == null)
+                    {
+    <ul>
+        <li>@Html.ActionLink("Dashboard", "GetDashboard", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Edit_Profile", "GetPatientData", "Patient")</li>
+    </ul> }
+                    else
+                    {
+    <ul>
+        <li>@Html.ActionLink("Dashboard", "GetDashboard", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Edit_Profile", "GetPatientData", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Change_Password", "ChangePassword", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Doctor_Appointment", "DoctorAppointment", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("View_Appointment_Detail", "ViewAppointmentDetails", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Send_Message_To_Doctor", "SendMessageToDoctor", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("View_Message", "ViewDoctorMessage", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Raise_Drug_Order", "RaiseDrugOrder", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("View_Order_Details", "ViewOrderDetails", "Patient")</li>
+    </ul>                }
+                }
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <div class="col-sm-9">
+        <div class="container">
+            <div class="container text-center">
+                <h2><b>Contact Your Doctor</b></h2>
+            </div>
+            <br><br><br><br />
+
+            @using (Html.BeginForm("PostMessageToDoctor", "Patient", FormMethod.Post))
+            {
+<div class="form-row">
+    <div class="col-sm-2">
+        <label>Choose Doctor</label>
+    </div>
+    <div class="col-sm-3">
+        @Html.DropDownListFor(a => a.ToEmailId, Model.lstDoctor, "Select", new { @class = "form-control" })
+    </div>
+</div>
+                <br /><br /><br /><br />
+
+                                <div class="form-row">
+                                    <div class="col-sm-2">
+                                        <label>Subject</label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(a => a.Subject, new { @class = "form-control", @maxlength = "50" })
+                                    </div>
+                                </div>
+                                                <br /><br /><br /><br />
+
+                                                                <div class="form-row">
+                                                                    <div class="col-sm-2">
+                                                                        <label>Message Details</label>
+                                                                    </div>
+                                                                    <div class="col-sm-8">
+                                                                        @Html.TextAreaFor(a => a.MessageDetail, new { @class = "form-control", @maxlength = "50" })
+                                                                    </div>
+                                                                </div>
+                                                                                <br /><br /><br /><br />
+
+                                                                                                <div class="form-row">
+                                                                                                    <div class="col-sm-3">
+                                                                                                        <input type="submit" class="btn btn-primary" value="Submit">
+                                                                                                    </div>
+
+                                                                                                    <div class="col-sm-3">
+                                                                                                        <input type="reset" class="btn btn-danger" value="Clear">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                                <br />
+                                                                                                                                <div class="text-success text-center form-group">
+                                                                                                                                    @ViewBag.Message
+                                                                                                                                </div>            }
+        </div>
+    </div>
+</div>
+
+
+

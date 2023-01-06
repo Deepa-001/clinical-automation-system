@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+    <style>
+        .navbar-nav {
+            min-height: 70px;
+            font-size: 50px;
+        }
+
+        .nav-item.active {
+            margin-right: 50px;
+            margin-top: 7px;
+            font-size: 30px;
+        }
+
+        #pic:hover {
+            transform: scale(1,2);
+        }
+
+        #pic2:hover {
+            transform: scale(1,2);
+        }
+
+        #txt1, #txt2, #txt3 {
+            box-shadow: 12px 12px 6px grey;
+        }
+
+        #pdp1, #pdp2, #pdp3, #pdp4, #ddp1, #ddp2, #ddp3, #ddp4, #sdp1, #sdp2 {
+            box-shadow: 12px 12px 6px grey;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                @*
+        <div class="navbar-header">
+            <img src="@Url.Content("~/Logo.png")" width="170" height="70" alt="image">
+        </div>*@
+
+
+                @if (Request.IsAuthenticated)
+                {
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    @Html.ActionLink("Home", "Home", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </li>
+                <li class="nav-item active">
+                    @Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </li>
+                <li class="nav-item active">
+                    @Html.ActionLink("AdminLogin", "Login", "Admin", new { area = "" }, new { @class = "navbar-brand" })
+                </li>
+            
+                <li class="nav-item active">
+                    @Html.ActionLink("LogOut", "LogOut", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </li>
+                </ul> }
+                else
+                {
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        @Html.ActionLink("Home", "Home", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </li>
+                    <li class="nav-item active">
+                        @Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </li>
+                    <li class="nav-item active">
+                        @Html.ActionLink("Login", "Login", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </li>
+                    <li class="nav-item active">
+                        @Html.ActionLink("Register", "Register", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </li>
+                    <li class="nav-item active">
+                        @Html.ActionLink("LogOut", "LogOut", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </li>
+                    <li class="nav-item active">
+                        @Html.ActionLink("AdminLogin", "Login", "Admin", new { area = "" }, new { @class = "navbar-brand" })
+                    </li>
+                </ul>}
+
+            </div>
+        </nav>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+    
+
+</body>
+</html>

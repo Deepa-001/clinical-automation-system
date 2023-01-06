@@ -1,0 +1,481 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MyDatabseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="AdminId" />
+    </Key>
+    <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="DoctorId" />
+    </Key>
+    <Property Name="DoctorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TotalExperience" Type="Int32" />
+    <Property Name="SpecializedId" Type="Int32" Nullable="false" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MemberId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MemberLogin" Relationship="Self.FK_Doctor_MemberLogin" FromRole="Doctor" ToRole="MemberLogin" />
+    <NavigationProperty Name="SpecializedData" Relationship="Self.FK_Doctor_SpecializedData" FromRole="Doctor" ToRole="SpecializedData" />
+    <NavigationProperty Name="DoctorAppointments" Relationship="Self.FK_DoctorAppointment_Doctor" FromRole="Doctor" ToRole="DoctorAppointment" />
+  </EntityType>
+  <EntityType Name="DoctorAppointment">
+    <Key>
+      <PropertyRef Name="AppointmentId" />
+    </Key>
+    <Property Name="AppointmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PatientId" Type="Int32" Nullable="false" />
+    <Property Name="DoctorId" Type="Int32" Nullable="false" />
+    <Property Name="Subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="AppointmentDate" Type="DateTime" Precision="3" />
+    <Property Name="AppointmentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Doctor" Relationship="Self.FK_DoctorAppointment_Doctor" FromRole="DoctorAppointment" ToRole="Doctor" />
+    <NavigationProperty Name="Patient" Relationship="Self.FK_DoctorAppointment_Patient" FromRole="DoctorAppointment" ToRole="Patient" />
+  </EntityType>
+  <EntityType Name="Drug">
+    <Key>
+      <PropertyRef Name="DrugId" />
+    </Key>
+    <Property Name="DrugId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DrugName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ManufactureDate" Type="DateTime" Precision="3" />
+    <Property Name="ExpiredDate" Type="DateTime" Precision="3" />
+    <Property Name="UsedFor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SideEffects" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TotalQuantityAvailable" Type="Int32" />
+    <Property Name="IsDeleted" Type="Boolean" />
+    <NavigationProperty Name="PatientOrderDetails" Relationship="Self.FK_PatientOrderDetail_Drug" FromRole="Drug" ToRole="PatientOrderDetail" />
+  </EntityType>
+  <EntityType Name="DrugDelivery">
+    <Key>
+      <PropertyRef Name="DeliveryId" />
+    </Key>
+    <Property Name="DeliveryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <Property Name="SupplierId" Type="Int32" Nullable="false" />
+    <Property Name="DeliveredDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="PatientOrderDetail" Relationship="Self.FK_DrugDelivery_PatientOrderDetail" FromRole="DrugDelivery" ToRole="PatientOrderDetail" />
+    <NavigationProperty Name="Supplier" Relationship="Self.FK_DrugDelivery_Supplier" FromRole="DrugDelivery" ToRole="Supplier" />
+  </EntityType>
+  <EntityType Name="Inbox">
+    <Key>
+      <PropertyRef Name="MessageId" />
+    </Key>
+    <Property Name="MessageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FromEmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ToEmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MessageDetail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MessageDate" Type="DateTime" Precision="3" />
+    <Property Name="ReplyId" Type="Int32" />
+    <Property Name="IsRead" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="MemberLogin">
+    <Key>
+      <PropertyRef Name="MemberId" />
+    </Key>
+    <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Doctors" Relationship="Self.FK_Doctor_MemberLogin" FromRole="MemberLogin" ToRole="Doctor" />
+    <NavigationProperty Name="RoleDetail" Relationship="Self.FK_MemberLogin_RoleDetail" FromRole="MemberLogin" ToRole="RoleDetail" />
+    <NavigationProperty Name="Patients" Relationship="Self.FK_Patient_MemberLogin" FromRole="MemberLogin" ToRole="Patient" />
+    <NavigationProperty Name="Suppliers" Relationship="Self.FK_Supplier_MemberLogin" FromRole="MemberLogin" ToRole="Supplier" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="PatientId" />
+    </Key>
+    <Property Name="PatientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="MemberId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DoctorAppointments" Relationship="Self.FK_DoctorAppointment_Patient" FromRole="Patient" ToRole="DoctorAppointment" />
+    <NavigationProperty Name="MemberLogin" Relationship="Self.FK_Patient_MemberLogin" FromRole="Patient" ToRole="MemberLogin" />
+    <NavigationProperty Name="PatientOrderDetails" Relationship="Self.FK_PatientOrderDetail_Patient" FromRole="Patient" ToRole="PatientOrderDetail" />
+  </EntityType>
+  <EntityType Name="PatientOrderDetail">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PatientId" Type="Int32" Nullable="false" />
+    <Property Name="DrugId" Type="Int32" Nullable="false" />
+    <Property Name="OrderNumber" Type="Int32" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="OrderedDate" Type="DateTime" Precision="3" />
+    <Property Name="OrderStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Drug" Relationship="Self.FK_PatientOrderDetail_Drug" FromRole="PatientOrderDetail" ToRole="Drug" />
+    <NavigationProperty Name="DrugDeliveries" Relationship="Self.FK_DrugDelivery_PatientOrderDetail" FromRole="PatientOrderDetail" ToRole="DrugDelivery" />
+    <NavigationProperty Name="Patient" Relationship="Self.FK_PatientOrderDetail_Patient" FromRole="PatientOrderDetail" ToRole="Patient" />
+  </EntityType>
+  <EntityType Name="RoleDetail">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="MemberLogins" Relationship="Self.FK_MemberLogin_RoleDetail" FromRole="RoleDetail" ToRole="MemberLogin" />
+  </EntityType>
+  <EntityType Name="SpecializedData">
+    <Key>
+      <PropertyRef Name="SpecializedId" />
+    </Key>
+    <Property Name="SpecializedId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SpecializedName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Doctors" Relationship="Self.FK_Doctor_SpecializedData" FromRole="SpecializedData" ToRole="Doctor" />
+  </EntityType>
+  <EntityType Name="Supplier">
+    <Key>
+      <PropertyRef Name="SupplierId" />
+    </Key>
+    <Property Name="SupplierId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MemberId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DrugDeliveries" Relationship="Self.FK_DrugDelivery_Supplier" FromRole="Supplier" ToRole="DrugDelivery" />
+    <NavigationProperty Name="MemberLogin" Relationship="Self.FK_Supplier_MemberLogin" FromRole="Supplier" ToRole="MemberLogin" />
+  </EntityType>
+  <Association Name="FK_Doctor_MemberLogin">
+    <End Role="MemberLogin" Type="Self.MemberLogin" Multiplicity="1" />
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberLogin">
+        <PropertyRef Name="MemberId" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Doctor_SpecializedData">
+    <End Role="SpecializedData" Type="Self.SpecializedData" Multiplicity="1" />
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SpecializedData">
+        <PropertyRef Name="SpecializedId" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="SpecializedId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DoctorAppointment_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="DoctorAppointment" Type="Self.DoctorAppointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="DoctorId" />
+      </Principal>
+      <Dependent Role="DoctorAppointment">
+        <PropertyRef Name="DoctorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DoctorAppointment_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="DoctorAppointment" Type="Self.DoctorAppointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="PatientId" />
+      </Principal>
+      <Dependent Role="DoctorAppointment">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientOrderDetail_Drug">
+    <End Role="Drug" Type="Self.Drug" Multiplicity="1" />
+    <End Role="PatientOrderDetail" Type="Self.PatientOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Drug">
+        <PropertyRef Name="DrugId" />
+      </Principal>
+      <Dependent Role="PatientOrderDetail">
+        <PropertyRef Name="DrugId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DrugDelivery_PatientOrderDetail">
+    <End Role="PatientOrderDetail" Type="Self.PatientOrderDetail" Multiplicity="1" />
+    <End Role="DrugDelivery" Type="Self.DrugDelivery" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PatientOrderDetail">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="DrugDelivery">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DrugDelivery_Supplier">
+    <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
+    <End Role="DrugDelivery" Type="Self.DrugDelivery" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="SupplierId" />
+      </Principal>
+      <Dependent Role="DrugDelivery">
+        <PropertyRef Name="SupplierId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MemberLogin_RoleDetail">
+    <End Role="RoleDetail" Type="Self.RoleDetail" Multiplicity="1" />
+    <End Role="MemberLogin" Type="Self.MemberLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RoleDetail">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="MemberLogin">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Patient_MemberLogin">
+    <End Role="MemberLogin" Type="Self.MemberLogin" Multiplicity="1" />
+    <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberLogin">
+        <PropertyRef Name="MemberId" />
+      </Principal>
+      <Dependent Role="Patient">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Supplier_MemberLogin">
+    <End Role="MemberLogin" Type="Self.MemberLogin" Multiplicity="1" />
+    <End Role="Supplier" Type="Self.Supplier" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemberLogin">
+        <PropertyRef Name="MemberId" />
+      </Principal>
+      <Dependent Role="Supplier">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PatientOrderDetail_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="PatientOrderDetail" Type="Self.PatientOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="PatientId" />
+      </Principal>
+      <Dependent Role="PatientOrderDetail">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MyDatabseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Doctors" EntityType="Self.Doctor" />
+    <EntitySet Name="DoctorAppointments" EntityType="Self.DoctorAppointment" />
+    <EntitySet Name="Drugs" EntityType="Self.Drug" />
+    <EntitySet Name="DrugDeliveries" EntityType="Self.DrugDelivery" />
+    <EntitySet Name="Inboxes" EntityType="Self.Inbox" />
+    <EntitySet Name="MemberLogins" EntityType="Self.MemberLogin" />
+    <EntitySet Name="Patients" EntityType="Self.Patient" />
+    <EntitySet Name="PatientOrderDetails" EntityType="Self.PatientOrderDetail" />
+    <EntitySet Name="RoleDetails" EntityType="Self.RoleDetail" />
+    <EntitySet Name="SpecializedDatas" EntityType="Self.SpecializedData" />
+    <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+    <AssociationSet Name="FK_Doctor_MemberLogin" Association="Self.FK_Doctor_MemberLogin">
+      <End Role="MemberLogin" EntitySet="MemberLogins" />
+      <End Role="Doctor" EntitySet="Doctors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Doctor_SpecializedData" Association="Self.FK_Doctor_SpecializedData">
+      <End Role="SpecializedData" EntitySet="SpecializedDatas" />
+      <End Role="Doctor" EntitySet="Doctors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DoctorAppointment_Doctor" Association="Self.FK_DoctorAppointment_Doctor">
+      <End Role="Doctor" EntitySet="Doctors" />
+      <End Role="DoctorAppointment" EntitySet="DoctorAppointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DoctorAppointment_Patient" Association="Self.FK_DoctorAppointment_Patient">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="DoctorAppointment" EntitySet="DoctorAppointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientOrderDetail_Drug" Association="Self.FK_PatientOrderDetail_Drug">
+      <End Role="Drug" EntitySet="Drugs" />
+      <End Role="PatientOrderDetail" EntitySet="PatientOrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DrugDelivery_PatientOrderDetail" Association="Self.FK_DrugDelivery_PatientOrderDetail">
+      <End Role="PatientOrderDetail" EntitySet="PatientOrderDetails" />
+      <End Role="DrugDelivery" EntitySet="DrugDeliveries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DrugDelivery_Supplier" Association="Self.FK_DrugDelivery_Supplier">
+      <End Role="Supplier" EntitySet="Suppliers" />
+      <End Role="DrugDelivery" EntitySet="DrugDeliveries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MemberLogin_RoleDetail" Association="Self.FK_MemberLogin_RoleDetail">
+      <End Role="RoleDetail" EntitySet="RoleDetails" />
+      <End Role="MemberLogin" EntitySet="MemberLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Patient_MemberLogin" Association="Self.FK_Patient_MemberLogin">
+      <End Role="MemberLogin" EntitySet="MemberLogins" />
+      <End Role="Patient" EntitySet="Patients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Supplier_MemberLogin" Association="Self.FK_Supplier_MemberLogin">
+      <End Role="MemberLogin" EntitySet="MemberLogins" />
+      <End Role="Supplier" EntitySet="Suppliers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PatientOrderDetail_Patient" Association="Self.FK_PatientOrderDetail_Patient">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="PatientOrderDetail" EntitySet="PatientOrderDetails" />
+    </AssociationSet>
+    <FunctionImport Name="InsertDoctor">
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="TotalExperience" Mode="In" Type="Int32" />
+      <Parameter Name="SpecializedId" Mode="In" Type="Int32" />
+      <Parameter Name="Gender" Mode="In" Type="String" />
+      <Parameter Name="MemberId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InsertDoctorAppointment">
+      <Parameter Name="PatientId" Mode="In" Type="Int32" />
+      <Parameter Name="DoctorId" Mode="In" Type="Int32" />
+      <Parameter Name="Subject" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="AppointmentDate" Mode="In" Type="DateTime" />
+      <Parameter Name="AppointmentStatus" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="InsertDrugDelivery">
+      <Parameter Name="OrderId" Mode="In" Type="Int32" />
+      <Parameter Name="SupplierId" Mode="In" Type="Int32" />
+      <Parameter Name="DeliveredDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="InsertDrugDetails">
+      <Parameter Name="DrugName" Mode="In" Type="String" />
+      <Parameter Name="ManufactureDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ExpiredDate" Mode="In" Type="DateTime" />
+      <Parameter Name="UsedFor" Mode="In" Type="String" />
+      <Parameter Name="SideEffects" Mode="In" Type="String" />
+      <Parameter Name="TotalQuantityAvailable" Mode="In" Type="Int32" />
+      <Parameter Name="IsDeleted" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="InsertMember">
+      <Parameter Name="EmaiId" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="RoleId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InsertMessage">
+      <Parameter Name="FromEmailId" Mode="In" Type="String" />
+      <Parameter Name="ToEmailId" Mode="In" Type="String" />
+      <Parameter Name="Subject" Mode="In" Type="String" />
+      <Parameter Name="MessageDetail" Mode="In" Type="String" />
+      <Parameter Name="MessageDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ReplyId" Mode="In" Type="Int32" />
+      <Parameter Name="IsRead" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="InsertPatient">
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="DateOfBirth" Mode="In" Type="DateTime" />
+      <Parameter Name="Gender" Mode="In" Type="String" />
+      <Parameter Name="Address" Mode="In" Type="String" />
+      <Parameter Name="MemberId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="InsertPatientDrugOrder">
+      <Parameter Name="PatientId" Mode="In" Type="Int32" />
+      <Parameter Name="DrugId" Mode="In" Type="Int32" />
+      <Parameter Name="OrderNumber" Mode="In" Type="Int32" />
+      <Parameter Name="Quantity" Mode="In" Type="Int32" />
+      <Parameter Name="OrderDate" Mode="In" Type="DateTime" />
+      <Parameter Name="OrderStatus" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="InsertSupplier">
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="CompanyName" Mode="In" Type="String" />
+      <Parameter Name="CompanyAddresss" Mode="In" Type="String" />
+      <Parameter Name="MemberId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateAdminPassword">
+      <Parameter Name="AdminId" Mode="In" Type="Int32" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateAdminProfile">
+      <Parameter Name="AdminId" Mode="In" Type="Int32" />
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="EmailId" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="Gender" Mode="In" Type="String" />
+      <Parameter Name="Address" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateAppointmentStatus">
+      <Parameter Name="AppointmentId" Mode="In" Type="Int32" />
+      <Parameter Name="DoctorDecision" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateDoctor">
+      <Parameter Name="MemberId" Mode="In" Type="Int32" />
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="TotalExperience" Mode="In" Type="Int32" />
+      <Parameter Name="SpecializedId" Mode="In" Type="Int32" />
+      <Parameter Name="Gender" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateDrug">
+      <Parameter Name="DrugId" Mode="In" Type="Int32" />
+      <Parameter Name="IsDeleted" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateDrugDeatails">
+      <Parameter Name="DrugId" Mode="In" Type="Int32" />
+      <Parameter Name="DrugName" Mode="In" Type="String" />
+      <Parameter Name="ManufactureDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ExpiredDate" Mode="In" Type="DateTime" />
+      <Parameter Name="UsedFor" Mode="In" Type="String" />
+      <Parameter Name="SideEffects" Mode="In" Type="String" />
+      <Parameter Name="TotalQuantityAvailable" Mode="In" Type="Int32" />
+      <Parameter Name="IsDeleted" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateDrugDelivery">
+      <Parameter Name="OrderId" Mode="In" Type="Int32" />
+      <Parameter Name="DeliveredDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateIsRead">
+      <Parameter Name="MessageId" Mode="In" Type="Int32" />
+      <Parameter Name="IsRead" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="UpdatePassword">
+      <Parameter Name="MemberId" Mode="In" Type="Int32" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdatePatient">
+      <Parameter Name="MemberId" Mode="In" Type="Int32" />
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="DateOfBirth" Mode="In" Type="DateTime" />
+      <Parameter Name="Gender" Mode="In" Type="String" />
+      <Parameter Name="Address" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdatePatientOrderDetails">
+      <Parameter Name="OrderId" Mode="In" Type="Int32" />
+      <Parameter Name="OrderStatus" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateSupplier">
+      <Parameter Name="MemberId" Mode="In" Type="Int32" />
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="CompanyName" Mode="In" Type="String" />
+      <Parameter Name="CompanyAddress" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

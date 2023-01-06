@@ -1,0 +1,88 @@
+﻿@model NewProjectCAS.Models.DrugOrderModel
+@{ ViewBag.Title = "ViewOrderDetails"; }
+
+<div class="form-row" style="margin-left:-15px">
+    <div class="col-sm-3">
+
+
+        <div class="w3-sidebar w3-light-grey w3-bar-block" style="height:835px;background-color:darkgrey">
+            <h1 class="text-center">Menu</h1>
+            <br><br>
+            <div class="container text-left col-sm-3" style="font-size:20px">
+                @using (MyDatabseEntities db = new MyDatabseEntities())
+                {
+                    int mid = Convert.ToInt32(Session["MemberId"]);
+                    var getdata = db.Patients.FirstOrDefault(a => a.MemberId == mid);
+
+                    if (getdata == null)
+                    {
+    <ul>
+        <li>@Html.ActionLink("Dashboard", "GetDashboard", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Edit_Profile", "GetPatientData", "Patient")</li>
+    </ul> }
+                    else
+                    {
+    <ul>
+        <li>@Html.ActionLink("Dashboard", "GetDashboard", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Edit_Profile", "GetPatientData", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Change_Password", "ChangePassword", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Doctor_Appointment", "DoctorAppointment", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("View_Appointment_Detail", "ViewAppointmentDetails", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Send_Message_To_Doctor", "SendMessageToDoctor", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("View_Message", "ViewDoctorMessage", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Raise_Drug_Order", "RaiseDrugOrder", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("View_Order_Details", "ViewOrderDetails", "Patient")</li>
+    </ul>                }
+                }
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <div class="col-sm-9">
+        <div>
+            <div class="container text-center">
+                <h2><b>This is Your Drug Order Details</b></h2>
+            </div>
+            <br><br><br><br />
+
+            <table class="table table-bordered">
+                <tr>
+                    <th>Drug Id</th>
+                    <th>Drug Name</th>
+                    <th>OrderNumber</th>
+                    <th>Quantity</th>
+                    <th>Order Date</th>
+                    <th>Order Status(Pending)</th>
+                </tr>
+
+                @if (Model.lstDrugOrder.Count > 0)
+                {
+                    foreach (var item in Model.lstDrugOrder)
+                    {
+    <tr>
+        <td>@item.DrugId</td>
+        <td>@item.DrugName</td>
+        <td>@item.OrderNumber</td>
+        <td>@item.Quantity</td>
+        <td>@item.OrderDate</td>
+        <td>@item.OrderStatus</td>
+    </tr>
+ }
+                }
+                else
+                {
+    <tr class="text-center">
+        <td colspan="6">No Record Found</td>
+    </tr>}
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+

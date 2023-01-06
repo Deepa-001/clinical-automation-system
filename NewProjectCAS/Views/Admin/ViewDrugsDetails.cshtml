@@ -1,0 +1,81 @@
+﻿@model NewProjectCAS.Models.AdminDrugDetailsModel
+@{ ViewBag.Title = "ViewDrugsDetails";
+    Layout = "~/Views/Admin/LayoutPage1.cshtml"; }
+
+<div class="form-row" style="margin-left:-15px">
+    <div class="col-sm-3">
+
+        <div class="w3-sidebar w3-light-grey w3-bar-block" style="height:835px;background-color:darkgrey">
+            <h1 class="text-center">Menu</h1>
+            <br><br>
+            <div class="container text-left col-sm-3" style="font-size:20px">
+                <ul>
+                    <li>@Html.ActionLink("Dashboard", "GetDashboard", "Admin")<br><br /></li>
+                    <li>@Html.ActionLink("Edit_Profile", "GetAdminData", "Admin")<br><br /></li>
+                    <li>@Html.ActionLink("Change_Password", "ChangePassword", "Admin")<br><br /></li>
+                    <li>@Html.ActionLink("Add_And_Edit_Drug_Details", "AddDrugDetails", "Admin")<br><br /></li>
+                    <li>@Html.ActionLink("View_And_Delete_Drugs", "ViewDrugsDetails", "Admin")<br><br /></li>
+                    <li>@Html.ActionLink("View_Order_Detail", "ViewOrderDetail", "Admin")</li>
+                </ul>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <div class="col-sm-9">
+        <div class="container">
+            <div class="container text-center">
+                <h2><b>List of Available Drug</b></h2>
+            </div>
+            <br><br><br><br />
+
+            <table class="table table-bordered">
+                <tr>
+                    <th>Drug Id</th>
+                    <th>Drug Name</th>
+                    <th>Manufacture Date</th>
+                    <th>Expired Date</th>
+                    <th>Used For</th>
+                    <th>Side Effects</th>
+                    <th>Total Quantity Available</th>
+                    <th colspan="2">Operation</th>
+                </tr>
+
+                @if (Model.lstdrugdetail.Count > 0)
+                {
+                    foreach (var item in Model.lstdrugdetail)
+                    {
+    <tr>
+        <td>@item.DrugId</td>
+        <td>@item.DrugName</td>
+        <td>@item.ManufactureDate</td>
+        <td>@item.ExpiredDate</td>
+        <td>@item.UsedFor</td>
+        <td>@item.SideEffects</td>
+        <td>@item.TotalQuantityAvailable</td>
+        <td>
+            <a href="@Url.Action("EditDrugDetails", "Admin", new { id = item.DrugId })">Edit</a>
+        </td>
+        <td>
+            <a href="@Url.Action("DeleteDrugsDetails", "Admin", new { id = item.DrugId })"
+               onclick="return confirm('Do u want to delete the record')">Delete</a>
+        </td>
+    </tr> }
+                }
+                else
+                {
+    <tr class="text-center">
+        <td colspan="10">No record Found</td>
+    </tr>
+}
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+

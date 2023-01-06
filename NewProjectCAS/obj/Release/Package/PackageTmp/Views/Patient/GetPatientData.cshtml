@@ -1,0 +1,119 @@
+﻿@model NewProjectCAS.Models.PatientViewModel
+@{ ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+<div class="form-row" style="margin-left:-15px">
+    <div class="col-sm-3">
+
+
+
+        <div class="w3-sidebar w3-light-grey w3-bar-block" style="height:835px;background-color:darkgrey">
+            <h1 class="text-center">Menu</h1>
+            <br><br>
+            <div class="container text-left col-sm-3" style="font-size:20px">
+                @using (MyDatabseEntities db = new MyDatabseEntities())
+                {
+                    int mid = Convert.ToInt32(Session["MemberId"]);
+                    var getdata = db.Patients.FirstOrDefault(a => a.MemberId == mid);
+
+                    if (getdata == null)
+                    {
+    <ul>
+        <li>@Html.ActionLink("Dashboard", "GetDashboard", "Patient")<br><br /></li>
+        <li>@Html.ActionLink("Edit_Profile", "GetPatientData", "Patient")</li>
+    </ul> }
+else
+{
+<ul>
+    <li>@Html.ActionLink("Dashboard", "GetDashboard", "Patient")<br><br /></li>
+    <li>@Html.ActionLink("Edit_Profile", "GetPatientData", "Patient")<br><br /></li>
+    <li>@Html.ActionLink("Change_Password", "ChangePassword", "Patient")<br><br /></li>
+    <li>@Html.ActionLink("Doctor_Appointment", "DoctorAppointment", "Patient")<br><br /></li>
+    <li>@Html.ActionLink("View_Appointment_Detail", "ViewAppointmentDetails", "Patient")<br><br /></li>
+    <li>@Html.ActionLink("Send_Message_To_Doctor", "SendMessageToDoctor", "Patient")<br><br /></li>
+    <li>@Html.ActionLink("View_Message", "ViewDoctorMessage", "Patient")<br><br /></li>
+    <li>@Html.ActionLink("Raise_Drug_Order", "RaiseDrugOrder", "Patient")<br><br /></li>
+    <li>@Html.ActionLink("View_Order_Details", "ViewOrderDetails", "Patient")</li>
+</ul>           }
+}
+
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+    <div class="col-sm-9">
+        <div class="container">
+            <div class="container text-center">
+                <h2><b>Patients-Details</b></h2>
+            </div>
+            <br><br><br><br />
+
+            @using (Html.BeginForm("PostPatientData", "Patient", FormMethod.Post))
+            {
+<div class="form-row">
+    <div class="col-sm-2">
+        <label>First Name</label>
+    </div>
+    <div class="col-sm-3">
+        @Html.TextBoxFor(a => a.FirstName, new { @class = "form-control", @maxlength = "30" })
+    </div>
+    <div class="col-sm-1">
+
+    </div>
+    <div class="col-sm-2">
+        <label>Last Name</label>
+    </div>
+    <div class="col-sm-3">
+        @Html.TextBoxFor(a => a.LastName, new { @class = "form-control", @maxlength = "30" })
+    </div>
+</div>
+                <br><br><br><br>
+
+                                <div class="form-row">
+                                    <div class="col-sm-2">
+                                        <label>Date Of Birth</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="date" @Html.EditorFor(a => a.DateOfBirth, new { htmlattributes = new { @class = "form-control", @maxlength = "30" } })
+                                               @*@Html.TextBoxFor(a => a.DateOfBirth, new { @class = "form-control", @maxlength = "30" })*@
+                                    </div>
+                                    <div class="col-sm-1">
+
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label>Gender</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        Male:   @Html.RadioButtonFor(a => a.Gender, "Male")
+                                        Female: @Html.RadioButtonFor(a => a.Gender, "Female")
+                                    </div>
+                                </div>
+                                                <br><br><br><br>
+
+                                                                <div class="form-row">
+                                                                    <div class="col-sm-2">
+                                                                        <label>Address</label>
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        @Html.TextBoxFor(a => a.Address, new { @class = "form-control", @maxlength = "50" })
+                                                                    </div>
+                                                                </div>
+                                                                                <br><br><br><br>
+
+                                                                                                <div class="container">
+                                                                                                    <input type="submit" class="btn btn-primary" value="Register">
+                                                                                                </div>
+
+                                                                                                                <div class="text-success form-group">
+                                                                                                                    @ViewBag.Message
+                                                                                                                </div>}
+        </div>
+    </div>
+</div>
+
+

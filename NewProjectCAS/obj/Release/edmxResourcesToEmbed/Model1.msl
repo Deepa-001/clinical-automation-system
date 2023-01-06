@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MyDatabseModelStoreContainer" CdmEntityContainer="MyDatabseEntities">
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="MyDatabseModel.Admin">
+        <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Doctors">
+      <EntityTypeMapping TypeName="MyDatabseModel.Doctor">
+        <MappingFragment StoreEntitySet="Doctor">
+          <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="TotalExperience" ColumnName="TotalExperience" />
+          <ScalarProperty Name="SpecializedId" ColumnName="SpecializedId" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DoctorAppointments">
+      <EntityTypeMapping TypeName="MyDatabseModel.DoctorAppointment">
+        <MappingFragment StoreEntitySet="DoctorAppointment">
+          <ScalarProperty Name="AppointmentId" ColumnName="AppointmentId" />
+          <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+          <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="AppointmentDate" ColumnName="AppointmentDate" />
+          <ScalarProperty Name="AppointmentStatus" ColumnName="AppointmentStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Drugs">
+      <EntityTypeMapping TypeName="MyDatabseModel.Drug">
+        <MappingFragment StoreEntitySet="Drug">
+          <ScalarProperty Name="DrugId" ColumnName="DrugId" />
+          <ScalarProperty Name="DrugName" ColumnName="DrugName" />
+          <ScalarProperty Name="ManufactureDate" ColumnName="ManufactureDate" />
+          <ScalarProperty Name="ExpiredDate" ColumnName="ExpiredDate" />
+          <ScalarProperty Name="UsedFor" ColumnName="UsedFor" />
+          <ScalarProperty Name="SideEffects" ColumnName="SideEffects" />
+          <ScalarProperty Name="TotalQuantityAvailable" ColumnName="TotalQuantityAvailable" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DrugDeliveries">
+      <EntityTypeMapping TypeName="MyDatabseModel.DrugDelivery">
+        <MappingFragment StoreEntitySet="DrugDelivery">
+          <ScalarProperty Name="DeliveryId" ColumnName="DeliveryId" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+          <ScalarProperty Name="DeliveredDate" ColumnName="DeliveredDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Inboxes">
+      <EntityTypeMapping TypeName="MyDatabseModel.Inbox">
+        <MappingFragment StoreEntitySet="Inbox">
+          <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+          <ScalarProperty Name="FromEmailId" ColumnName="FromEmailId" />
+          <ScalarProperty Name="ToEmailId" ColumnName="ToEmailId" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="MessageDetail" ColumnName="MessageDetail" />
+          <ScalarProperty Name="MessageDate" ColumnName="MessageDate" />
+          <ScalarProperty Name="ReplyId" ColumnName="ReplyId" />
+          <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MemberLogins">
+      <EntityTypeMapping TypeName="MyDatabseModel.MemberLogin">
+        <MappingFragment StoreEntitySet="MemberLogin">
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Patients">
+      <EntityTypeMapping TypeName="MyDatabseModel.Patient">
+        <MappingFragment StoreEntitySet="Patient">
+          <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PatientOrderDetails">
+      <EntityTypeMapping TypeName="MyDatabseModel.PatientOrderDetail">
+        <MappingFragment StoreEntitySet="PatientOrderDetail">
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+          <ScalarProperty Name="DrugId" ColumnName="DrugId" />
+          <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="OrderedDate" ColumnName="OrderedDate" />
+          <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoleDetails">
+      <EntityTypeMapping TypeName="MyDatabseModel.RoleDetail">
+        <MappingFragment StoreEntitySet="RoleDetail">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SpecializedDatas">
+      <EntityTypeMapping TypeName="MyDatabseModel.SpecializedData">
+        <MappingFragment StoreEntitySet="SpecializedData">
+          <ScalarProperty Name="SpecializedId" ColumnName="SpecializedId" />
+          <ScalarProperty Name="SpecializedName" ColumnName="SpecializedName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Suppliers">
+      <EntityTypeMapping TypeName="MyDatabseModel.Supplier">
+        <MappingFragment StoreEntitySet="Supplier">
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="CompanyAddress" ColumnName="CompanyAddress" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="InsertDoctor" FunctionName="MyDatabseModel.Store.InsertDoctor" />
+    <FunctionImportMapping FunctionImportName="InsertDoctorAppointment" FunctionName="MyDatabseModel.Store.InsertDoctorAppointment" />
+    <FunctionImportMapping FunctionImportName="InsertDrugDelivery" FunctionName="MyDatabseModel.Store.InsertDrugDelivery" />
+    <FunctionImportMapping FunctionImportName="InsertDrugDetails" FunctionName="MyDatabseModel.Store.InsertDrugDetails" />
+    <FunctionImportMapping FunctionImportName="InsertMember" FunctionName="MyDatabseModel.Store.InsertMember" />
+    <FunctionImportMapping FunctionImportName="InsertMessage" FunctionName="MyDatabseModel.Store.InsertMessage" />
+    <FunctionImportMapping FunctionImportName="InsertPatient" FunctionName="MyDatabseModel.Store.InsertPatient" />
+    <FunctionImportMapping FunctionImportName="InsertPatientDrugOrder" FunctionName="MyDatabseModel.Store.InsertPatientDrugOrder" />
+    <FunctionImportMapping FunctionImportName="InsertSupplier" FunctionName="MyDatabseModel.Store.InsertSupplier" />
+    <FunctionImportMapping FunctionImportName="UpdateAdminPassword" FunctionName="MyDatabseModel.Store.UpdateAdminPassword" />
+    <FunctionImportMapping FunctionImportName="UpdateAdminProfile" FunctionName="MyDatabseModel.Store.UpdateAdminProfile" />
+    <FunctionImportMapping FunctionImportName="UpdateAppointmentStatus" FunctionName="MyDatabseModel.Store.UpdateAppointmentStatus" />
+    <FunctionImportMapping FunctionImportName="UpdateDoctor" FunctionName="MyDatabseModel.Store.UpdateDoctor" />
+    <FunctionImportMapping FunctionImportName="UpdateDrug" FunctionName="MyDatabseModel.Store.UpdateDrug" />
+    <FunctionImportMapping FunctionImportName="UpdateDrugDeatails" FunctionName="MyDatabseModel.Store.UpdateDrugDeatails" />
+    <FunctionImportMapping FunctionImportName="UpdateDrugDelivery" FunctionName="MyDatabseModel.Store.UpdateDrugDelivery" />
+    <FunctionImportMapping FunctionImportName="UpdateIsRead" FunctionName="MyDatabseModel.Store.UpdateIsRead" />
+    <FunctionImportMapping FunctionImportName="UpdatePassword" FunctionName="MyDatabseModel.Store.UpdatePassword" />
+    <FunctionImportMapping FunctionImportName="UpdatePatient" FunctionName="MyDatabseModel.Store.UpdatePatient" />
+    <FunctionImportMapping FunctionImportName="UpdatePatientOrderDetails" FunctionName="MyDatabseModel.Store.UpdatePatientOrderDetails" />
+    <FunctionImportMapping FunctionImportName="UpdateSupplier" FunctionName="MyDatabseModel.Store.UpdateSupplier" />
+  </EntityContainerMapping>
+</Mapping>

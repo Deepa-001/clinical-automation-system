@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e4ae9565d7b54ca0ace904d754b88d44" Name="Diagram1">
+        <EntityTypeShape EntityType="MyDatabseModel.Admin" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDatabseModel.Doctor" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDatabseModel.DoctorAppointment" Width="1.5" PointX="7.5" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDatabseModel.Drug" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDatabseModel.DrugDelivery" Width="1.5" PointX="9.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDatabseModel.Inbox" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDatabseModel.MemberLogin" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDatabseModel.Patient" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDatabseModel.PatientOrderDetail" Width="1.5" PointX="7.5" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDatabseModel.RoleDetail" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDatabseModel.SpecializedData" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyDatabseModel.Supplier" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
+        <AssociationConnector Association="MyDatabseModel.FK_Doctor_MemberLogin" ManuallyRouted="false" />
+        <AssociationConnector Association="MyDatabseModel.FK_Doctor_SpecializedData" ManuallyRouted="false" />
+        <AssociationConnector Association="MyDatabseModel.FK_DoctorAppointment_Doctor" ManuallyRouted="false" />
+        <AssociationConnector Association="MyDatabseModel.FK_DoctorAppointment_Patient" ManuallyRouted="false" />
+        <AssociationConnector Association="MyDatabseModel.FK_PatientOrderDetail_Drug" ManuallyRouted="false" />
+        <AssociationConnector Association="MyDatabseModel.FK_DrugDelivery_PatientOrderDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="MyDatabseModel.FK_DrugDelivery_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="MyDatabseModel.FK_MemberLogin_RoleDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="MyDatabseModel.FK_Patient_MemberLogin" ManuallyRouted="false" />
+        <AssociationConnector Association="MyDatabseModel.FK_Supplier_MemberLogin" ManuallyRouted="false" />
+        <AssociationConnector Association="MyDatabseModel.FK_PatientOrderDetail_Patient" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

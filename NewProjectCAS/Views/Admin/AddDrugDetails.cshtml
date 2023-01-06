@@ -1,0 +1,125 @@
+﻿@model NewProjectCAS.Models.AdminDrugDetailsModel
+@{ ViewBag.Title = "AddDrugDetails";
+    Layout = "~/Views/Admin/LayoutPage1.cshtml"; }
+
+<div class="form-row" style="margin-left:-15px">
+    <div class="col-sm-3">
+
+
+        <div class="w3-sidebar w3-light-grey w3-bar-block" style="height:835px;background-color:darkgrey">
+            <h1 class="text-center">Menu</h1>
+            <br><br>
+            <div class="container text-left col-sm-3" style="font-size:20px">
+                <ul>
+                    <li>@Html.ActionLink("Dashboard", "GetDashboard", "Admin")<br><br /></li>
+                    <li>@Html.ActionLink("Edit_Profile", "GetAdminData", "Admin")<br><br /></li>
+                    <li>@Html.ActionLink("Change_Password", "ChangePassword", "Admin")<br><br /></li>
+                    <li>@Html.ActionLink("Add_And_Edit_Drug_Details", "AddDrugDetails", "Admin")<br><br /></li>
+                    <li>@Html.ActionLink("View_And_Delete_Drugs", "ViewDrugsDetails", "Admin")<br><br /></li>
+                    <li>@Html.ActionLink("View_Order_Detail", "ViewOrderDetail", "Admin")</li>
+                </ul>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+    <div class="col-sm-9">
+        <div class="container">
+            <div class="container text-center">
+                <h2><b>Add And Edit Drug Details Here</b></h2>
+            </div>
+            <br><br><br><br />
+
+            @using (Html.BeginForm("PostDrugDetails", "Admin", FormMethod.Post))
+            {
+@Html.HiddenFor(a => a.DrugId)
+                <div class="form-row">
+                    <div class="col-sm-2">
+                        <label>Drug Name</label>
+                    </div>
+                    <div class="col-sm-3">
+                        @Html.TextBoxFor(a => a.DrugName, new { @class = "form-control", @maxlength = "30" })
+                    </div>
+
+                    <div class="col-sm-1">
+
+                    </div>
+                    <div class="col-sm-2">
+                        <label>Manufactured Date</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="date" @Html.EditorFor(a => a.ManufactureDate, new { htmlattributes = new { @class = "form-control", @maxlength = "30" } })
+                               @*@Html.TextBoxFor(a => a.ManufactureDate, new { @class = "form-control", @maxlength = "30" })*@
+                    </div>
+                </div>
+                                <br><br><br><br>
+
+
+                                                <div class="form-row">
+                                                    <div class="col-sm-2">
+                                                        <label>Expired Date</label>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <input type="date" @Html.EditorFor(a => a.ExpiredDate, new { htmlattributes = new { @class = "form-control", @maxlength = "30" } })
+                                                               @*@Html.TextBoxFor(a => a.ExpiredDate, new { @class = "form-control", @maxlength = "30" })*@
+                                                    </div>
+
+                                                    <div class="col-sm-1"></div>
+
+                                                    <div class="col-sm-2">
+                                                        <label>Used For</label>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        @Html.TextBoxFor(a => a.UsedFor, new { @class = "form-control", @maxlength = "50" })
+                                                    </div>
+                                                </div>
+                                                                <br><br><br><br>
+
+                                                                                <div class="form-row">
+                                                                                    <div class="col-sm-2">
+                                                                                        <label>Side Effects</label>
+                                                                                    </div>
+                                                                                    <div class="col-sm-3">
+                                                                                        @Html.TextBoxFor(a => a.SideEffects, new { @class = "form-control", @maxlength = "30" })
+                                                                                    </div>
+
+                                                                                    <div class="col-sm-1"></div>
+
+                                                                                    <div class="col-sm-2">
+                                                                                        <label>Total Quantity Available</label>
+                                                                                    </div>
+                                                                                    <div class="col-sm-3">
+                                                                                        @Html.TextBoxFor(a => a.TotalQuantityAvailable, new { @class = "form-control", @maxlength = "50" })
+                                                                                    </div>
+                                                                                </div>
+                                                                                                <br><br><br><br>
+
+                                                                                                                <div class="form-row">
+                                                                                                                    <div class="col-sm-2">
+                                                                                                                        <label>IsDeleted</label>
+                                                                                                                    </div>
+                                                                                                                    <div class="col-sm-3">
+                                                                                                                        @Html.CheckBoxFor(a => a.IsDeleted)
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                                <br><br><br><br>
+
+                                                                                                                                                <div class="form-row">
+                                                                                                                                                    <input type="submit" class="btn btn-primary" value="Save">
+                                                                                                                                                    <input type="reset" class="btn btn-danger" value="Reset">
+                                                                                                                                                </div>
+
+                                                                                                                                                                <div class="text-success form-group">
+                                                                                                                                                                    @ViewBag.Message
+                                                                                                                                                                </div>}
+
+        </div>
+    </div>
+</div>
+
+
+
+

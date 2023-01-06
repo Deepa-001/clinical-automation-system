@@ -1,0 +1,121 @@
+﻿@model NewProjectCAS.Models.DoctorViewModel
+@{ ViewBag.Title = "EditProfile"; }
+
+<div class="form-row" style="margin-left:-15px">
+    <div class="col-sm-3">
+
+
+
+
+        <div class="w3-sidebar w3-light-grey w3-bar-block" style="height:835px;background-color:darkgrey">
+            <h1 class="text-center">Menu</h1>
+            <br><br>
+            <div class="container text-left col-sm-3" style="font-size:20px">
+                @using (MyDatabseEntities db = new MyDatabseEntities())
+                {
+                    int mid = Convert.ToInt32(Session["MemberId"]);
+                    var getdata = db.Doctors.FirstOrDefault(a => a.MemberId == mid);
+
+                    if (getdata == null)
+                    {
+    <ul>
+        <li>@Html.ActionLink("Dashboard", "GetDashboard", "Doctor")<br><br /></li>
+        <li>@Html.ActionLink("Edit_Profile", "GetDoctorData", "Doctor")</li>
+    </ul> }
+                    else
+                    {
+    <ul>
+        <li>@Html.ActionLink("Dashboard", "GetDashboard", "Doctor")<br><br /></li>
+        <li>@Html.ActionLink("GetDoctorData", "GetDoctorData", "Doctor")<br><br /></li>
+        <li>@Html.ActionLink("Change_Password", "ChangePassword", "Doctor")<br><br /></li>
+        <li>@Html.ActionLink("View_Appointment_Detail", "ViewAppointmentDetails", "Doctor")<br><br /></li>
+        <li>@Html.ActionLink("View_Message", "ViewPatientMessage", "Doctor")</li>
+    </ul>                }
+                }
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <div class="col-sm-9">
+        <div class="container">
+            <div class="container text-center">
+                <h2><b>Employee-Details</b></h2>
+            </div>
+            <br><br><br><br />
+
+            @using (Html.BeginForm("PostDoctorData", "Doctor", FormMethod.Post))
+            {
+<div class="form-row">
+    <div class="col-sm-2">
+        <label>First Name</label>
+    </div>
+    <div class="col-sm-3">
+        @Html.TextBoxFor(a => a.FirstName, new { @class = "form-control", @maxlength = "30" })
+    </div>
+
+    <div class="col-sm-1"></div>
+
+    <div class="col-sm-2">
+        <label>Last Name</label>
+    </div>
+    <div class="col-sm-3">
+        @Html.TextBoxFor(a => a.LastName, new { @class = "form-control", @maxlength = "30" })
+    </div>
+</div>
+                <br><br><br><br>
+
+                                <div class="form-row">
+                                    <div class="col-sm-2">
+                                        <label>Total Experience(in years)</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        @Html.TextBoxFor(a => a.TotalExperience, new { @type = "number", @class = "form-control", @min = "0" })
+                                    </div>
+
+                                    <div class="col-sm-1"></div>
+
+                                    <div class="col-sm-2">
+                                        <label>Specialization</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        @Html.DropDownListFor(a => a.SpecializedId, Model.lstSpecialization, "Select", new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                                <br><br><br><br>
+
+                                                                <div class="form-row">
+                                                                    <div class="col-sm-2">
+                                                                        <label>Gender</label>
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                        Male:   @Html.RadioButtonFor(a => a.Gender, "Male")
+                                                                        Female: @Html.RadioButtonFor(a => a.Gender, "Female")
+                                                                    </div>
+                                                                </div>
+                                                                                <br><br><br><br>
+
+                                                                                                <div class="form-row">
+                                                                                                    <input type="submit" class="btn btn-primary" value="Save">
+                                                                                                    <input type="reset" class="btn btn-danger" value="Reset">
+                                                                                                </div>
+
+                                                                                                                <div class="text-success form-group">
+                                                                                                                    @ViewBag.Message
+                                                                                                                </div>            }
+        </div>
+    </div>
+</div>
+
+
+
